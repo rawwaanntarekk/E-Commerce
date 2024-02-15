@@ -9,7 +9,7 @@ export default function NavBar() {
       >
         <div className="container">
           <Link className="navbar-brand fw-bold " href="#">
-            <span> <i class="fa-solid fa-cart-shopping fs-5 text-main"></i></span> FreshCart
+            <span> <i className="fa-solid fa-cart-shopping fs-5 text-main"></i></span> FreshCart
           </Link>
           <button
             className="navbar-toggler d-lg-none"
