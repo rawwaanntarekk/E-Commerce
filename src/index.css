@@ -1,27 +1,67 @@
+:root {
+  --main-color: #4FA74F;
+  --main-duration: 0.5s;
+}
+
 .text-main {
-  color: #5e8827;
+  color: var(--main-color) !important;
 }
 
 .bg-main {
-  background-color: #5e8827 !important;
+  background-color: var(--main-color) !important;
 }
 
-label {
+form label {
   transform: translateY(60%);
   position: absolute;
   z-index: -1;
-  transition-duration: 0.5s;
+  transition-duration: var(--main-duration);
   font-size: 1rem;
 
 }
 
 input {
-  color:#5e8827 !important
+  color: var(--main-color) !important;
+  box-shadow: none !important;
+}
+
+input:focus {
+  border: .11rem solid var(--main-color) !important;
 }
 
 .show-label {
   transform: translateY(-110%);
+}
 
+.error {
+  transition-duration: var(--main-duration);
+  color: red;
+  animation-name: shake;
+  animation-duration: var(--main-duration);
+}
+
+/* Error shake animation */
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-10px);
+  }
+
+  50% {
+    transform: translateX(10px);
+  }
+
+  75% {
+    transform: translateX(-10px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
 }
 
 /* Responsive Design */
