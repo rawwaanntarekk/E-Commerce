@@ -1,5 +1,7 @@
+import axios from 'axios';
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup'
 
 
@@ -7,8 +9,15 @@ import * as yup from 'yup'
 
 
 
-export default function Signup() {
+
+
+
+
+  export default  function Signup() {
     const [label, setLabel] = useState(true);
+    let navigate = useNavigate();
+    const [isLoading , setIsLoading] = useState(false);
+    const [error , setError] = useState(null);
     //checking if the input is empty - if it is empty then the label will be shown
     function checkEmpty(e){
         console.log(e.target.value.length);
@@ -22,12 +31,26 @@ export default function Signup() {
      }
 
      useEffect(() => {
-       
      } , [label])
 
+     async function SignUp(values){
+        setIsLoading(true);
 
-     //! Validating Form inputs 
-   
+        let {data} = await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signup" , values).catch((err) => {
+           setError(err.response.data.message);
+            setIsLoading(false);
+        });
+
+        if (data.message === "success") {
+               navigate('/signin');
+               setIsLoading(false);
+           }
+     }
+
+  
+
+
+     //! Validating Form inputs using Yup
     let validationSchema = yup.object({
         name:yup.string().required("Name is required").min(3, "Name must be at least 3 characters"),
         email:yup.string().required("Email is required").email("Email must respect this format : example@example.com"),
@@ -43,7 +66,7 @@ export default function Signup() {
             phone:'',
             password:'',
             rePassword:''},
-            onSubmit: (values)=> {console.log(values);},
+            onSubmit:SignUp,
             validationSchema: validationSchema
         })
      
@@ -79,10 +102,15 @@ export default function Signup() {
                     <label htmlFor="rePassword" className={`${label?"": "show-label"} text-main`}>Repassword</label>
                     <input onBlur={formik.handleBlur} onChange={formik.handleChange}  onInput={(e) => {checkEmpty(e)}}type="password" name='rePassword' id='rePassword'  className=' form-control py-2' placeholder='RePassword' />
                     {formik.errors.rePassword&& formik.touched.rePassword? <p className='error'>{formik.errors.rePassword}</p>:""}
+                    <p className='text-muted pt-2'>Have An Account ? <Link  to="../Signin/Signin.jsx" className='fw-bold text-main'>Signin</Link> </p>
+                    {error? <p className='error'>{error}</p>:""}
                 </div>
              
                 <div className="col-sm-12 col-10 col-md-12 mx-auto text-end">
-                  <button disabled={!(formik.isValid && formik.dirty)} type='submit' className='btn bg-main text-light px-4 '> Register</button>
+               
+                  <button disabled={!(formik.isValid && formik.dirty)} type='submit' className='btn bg-main text-light px-4 '> Register
+                  {isLoading ? <i class="fa-solid fa-spinner fa-spin mx-2"></i>:""}
+                  </button>
                     </div>
 
 

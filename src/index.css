@@ -3,6 +3,11 @@
   --main-duration: 0.5s;
 }
 
+a {
+  text-decoration: none !important;
+
+}
+
 .text-main {
   color: var(--main-color) !important;
 }
@@ -11,7 +16,7 @@
   background-color: var(--main-color) !important;
 }
 
-form label {
+ form label {
   transform: translateY(60%);
   position: absolute;
   z-index: -1;
