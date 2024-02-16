@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup'
+import style from "./Signup.module.css"
 
 
 
@@ -18,6 +19,7 @@ import * as yup from 'yup'
     let navigate = useNavigate();
     const [isLoading , setIsLoading] = useState(false);
     const [error , setError] = useState(null);
+    const [visible , setVisible] = useState(false);
     //checking if the input is empty - if it is empty then the label will be shown
     function checkEmpty(e){
         console.log(e.target.value.length);
@@ -95,7 +97,11 @@ import * as yup from 'yup'
                 </div>
                 <div className="col-sm-12 col-10 col-md-12 mx-auto mb-4">
                     <label htmlFor="password" className={`${label?"": "show-label"} text-main`}>Password</label>
+                    <div className='text-end position-relative '>
                     <input onBlur={formik.handleBlur} onChange={formik.handleChange} onInput={(e) => {checkEmpty(e)}} type="password" id='password' name='password'  className=' form-control py-2' placeholder='Password' />
+                    {/* {!visible? <i class={`${style.p} fa-solid fa-eye position-absolute translate-middle-y top-50 `}></i>:""}  */}
+
+                    </div>
                     {formik.errors.password&& formik.touched.password? <p className='error'>{formik.errors.password}</p>:""}
                 </div>
                 <div className="col-sm-12 col-10 col-md-12 mx-auto mb-4">

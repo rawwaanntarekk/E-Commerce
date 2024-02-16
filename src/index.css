@@ -2,6 +2,10 @@
   --main-color: #4FA74F;
   --main-duration: 0.5s;
 }
+::selection {
+  background-color: var(--main-color);
+  color: white;
+}
 
 a {
   text-decoration: none !important;
@@ -15,6 +19,8 @@ a {
 .bg-main {
   background-color: var(--main-color) !important;
 }
+
+
 
  form label {
   transform: translateY(60%);
