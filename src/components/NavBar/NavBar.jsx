@@ -40,8 +40,7 @@ export default function NavBar() {
               <li className="nav-item">
                 <Link className="nav-link" to="categories">Categories</Link>
               </li>
-             
-             
+
             </ul>
             <ul className="navbar-nav ms-auto mt-2 mt-lg-0">
 
@@ -55,7 +54,7 @@ export default function NavBar() {
                 <Link className="nav-link" to="signout">Signout</Link>
               </li>
             </ul>
-           
+
           </div>
         </div>
       </nav>

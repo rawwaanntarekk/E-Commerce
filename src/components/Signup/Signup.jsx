@@ -1,5 +1,6 @@
 import { useFormik } from 'formik';
 import React, { useEffect, useState } from 'react'
+import * as yup from 'yup'
 
 
 
@@ -26,56 +27,14 @@ export default function Signup() {
 
 
      //! Validating Form inputs 
-    function validate(values){
-        let errors = {};
-
-        //^ Name Validation
-        if(!values.name){
-            errors.name = 'Name is required';
-        }
-        else if(values.name.length < 3){
-            errors.name = 'Name must be at least 3 characters';
-        }
-
-        //^ Email Validation
-        if(!values.email){
-            errors.email = 'Email is required';
-        }
-        else if (!/^[a-zA-Z0-9\\.]+@[a-zA-z]+\.[a-zA-z]{2,}/.test(values.email)) {
-            errors.email = "Email must repect this format : example@example.com";
-        }
-
-        //^ Phone Validation
-        if (!values.phone) {
-            errors.phone = 'Phone is required';
-        }
-        else if (!/^01[1250][0-9]{8}$/.test(values.phone)) {
-            errors.phone = "Phone must respect this format : 01XXXXXXXXX";
-        
-        }
-
-        //^ Password Validation
-        if (!values.password) {
-            errors.password = 'Password is required';
-        }
-        else if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[$%&@!]).{8,}$/.test(values.password)) {
-            errors.password = "Password must contain at least 8 characters, including uppercase, lowercase, numbers and special characters";
-        }
-
-        //^ RePassword Validation
-        if (!values.rePassword) {
-            errors.rePassword = 'RePassword is required';
-        }
-        else if (values.rePassword !== values.password) {
-            errors.rePassword = "RePassword must match the password";
-        }
-
-        return errors;
-        
-        
-        
-
-     }
+   
+    let validationSchema = yup.object({
+        name:yup.string().required("Name is required").min(3, "Name must be at least 3 characters"),
+        email:yup.string().required("Email is required").email("Email must respect this format : example@example.com"),
+        phone:yup.string().required("Phone is required").matches(/^01[1250][0-9]{8}$/, "Phone must respect this format : 01{1,2,5,0}XXXXXXXX"),
+        password:yup.string().required("Password is required").matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[$%&@!]).{8,}$/, "Password must contain at least 8 characters, including uppercase, lowercase, numbers and special characters"),
+        rePassword:yup.string().required("RePassword is required").oneOf([yup.ref('password')], "RePassword must match the password")
+    })
 
      let formik = useFormik({
         initialValues:{
@@ -85,7 +44,7 @@ export default function Signup() {
             password:'',
             rePassword:''},
             onSubmit: (values)=> {console.log(values);},
-            validate
+            validationSchema: validationSchema
         })
      
 
