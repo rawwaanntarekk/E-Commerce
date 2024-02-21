@@ -21,8 +21,7 @@ export default function NavBar() {
 
   return (
     <div>
-      <nav
-        className="navbar navbar-expand-sm navbar-light bg-light"
+      <nav className="navbar navbar-expand-sm navbar-light bg-light position-fixed w-100 navBar "
       >
         <div className="container">
           <Link className="navbar-brand fw-bold " href="#">
