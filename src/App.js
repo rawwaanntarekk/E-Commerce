@@ -1,4 +1,3 @@
-
 import "./App.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./components/Layout/Layout.jsx";
@@ -11,8 +10,7 @@ import SignUp from "./components/Signup/Signup.jsx";
 import Categories from "./components/Categories/Categories.jsx";
 import NotFound from "./components/NotFound/NotFound.jsx";
 import TokenContext from "./Context/TokenContext.js";
-
-
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -20,14 +18,48 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { index: true, element: <SignIn /> },
-      { path: "home", element: <Home /> },
-      { path: "cart", element: <Cart /> },
-      { path: "products", element: <Products /> },
-      {path:"categories",element:<Categories/>},
-      { path: "brands", element: <Brands /> },
+      {
+        path: "home",
+        element: (
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "cart",
+        element: (
+          <ProtectedRoute>
+            <Cart />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "products",
+        element: (
+          <ProtectedRoute>
+            <Products />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "categories",
+        element: (
+          <ProtectedRoute>
+            <Categories />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "brands",
+        element: (
+          <ProtectedRoute>
+            <Brands />
+          </ProtectedRoute>
+        ),
+      },
       { path: "signin", element: <SignIn /> },
       { path: "signup", element: <SignUp /> },
-      {path: "signout",element:<Home/>},
       { path: "*", element: <NotFound /> },
     ],
   },
@@ -38,7 +70,6 @@ function App() {
     <TokenContext>
       <RouterProvider router={router} />
     </TokenContext>
-
   );
 }
 
