@@ -10,6 +10,7 @@ import SignIn from "./components/Signin/Signin.jsx";
 import SignUp from "./components/Signup/Signup.jsx";
 import Categories from "./components/Categories/Categories.jsx";
 import NotFound from "./components/NotFound/NotFound.jsx";
+import TokenContext from "./Context/TokenContext.js";
 
 
 
@@ -34,9 +35,10 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <>
+    <TokenContext>
       <RouterProvider router={router} />
-    </>
+    </TokenContext>
+
   );
 }
 

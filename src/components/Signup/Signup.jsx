@@ -1,22 +1,12 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup'
-import style from "./Signup.module.css"
-
-
-
-
-
-
-
-
-
 
   export default  function Signup() {
     const [NameLabel, setNameLabel] = useState(true);
-  const [EmailLabel, setEmailLabel] = useState(true);
+    const [EmailLabel, setEmailLabel] = useState(true);
     const [PasswordLabel, setPasswordLabel] = useState(true);
     const [RePasswordLabel, setRePasswordLabel] = useState(true);
     const [PhoneLabel, setPhoneLabel] = useState(true);
@@ -70,26 +60,27 @@ import style from "./Signup.module.css"
         }
          
      
-     }
+    }
 
-     useEffect(() => {
-     } , [])
+    useEffect(() => {
+    } , [])
 
-     async function SignUp(values){
+    async function SignUp(values){
         setIsLoading(true);
 
         let {data} = await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signup" , values).catch((err) => {
-           setError(err.response.data.message);
+            setError(err.response.data.message);
             setIsLoading(false);
         });
 
         if (data.message === "success") {
-               navigate('/signin');
-               setIsLoading(false);
-           }
-     }
+            navigate("/signin");
+            setIsLoading(false);
+            
+        }
+    }
 
-  
+
 
 
      //! Validating Form inputs using Yup

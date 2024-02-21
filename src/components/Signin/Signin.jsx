@@ -1,12 +1,16 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup'
+import  { UserToken } from '../../Context/TokenContext.js';
+
 
 
 
 export default function Signin() {
+    let {token, setToken} = useContext(UserToken);
+
 
     const [EmailLabel, setEmailLabel] = useState(true);
     const [PasswordLabel, setPasswordLabel] = useState(true);
@@ -41,24 +45,27 @@ export default function Signin() {
      
      }
 
-     useEffect(() => {
-     } , [])
+    useEffect(() => {
+    } , [])
 
-     async function SignUp(values){
+    async function SignUp(values){
         setIsLoading(true);
 
         let {data} = await axios.post("https://ecommerce.routemisr.com/api/v1/auth/signin" , values).catch((err) => {
-           setError(err.response.data.message);
+            setError(err.response.data.message);
             setIsLoading(false);
         });
 
         if (data.message === "success") {
-               navigate('/home');
-               setIsLoading(false);
-           }
-     }
+            navigate('/home');
+            setIsLoading(false);
+            setToken(data.token);
+            localStorage.setItem("UserToken" , data.token);
 
-  
+
+        }
+    }
+
 
 
      //! Validating Form inputs using Yup

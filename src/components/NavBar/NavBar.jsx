@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-
+import { UserToken } from '../../Context/TokenContext'
 export default function NavBar() {
+  let {token , setToken} = useContext(UserToken);
+
+  if (localStorage.getItem('UserToken') !== null) {
+    setToken(localStorage.getItem('UserToken'));
+  }
+
   return (
     <div>
       <nav
@@ -23,36 +29,45 @@ export default function NavBar() {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="collapsibleNavId">
-            <ul className="navbar-nav me-auto mt-2 mt-lg-0">
+            {token ?
+              <ul className="navbar-nav me-auto mt-2 mt-lg-0">
+             <li className="nav-item">
+               <Link className="nav-link" to="home">Home</Link>
+             </li>
+             <li className="nav-item">
+               <Link className="nav-link" to="products">Products</Link>
+             </li>
+             <li className="nav-item">
+               <Link className="nav-link" to="brands">Brands</Link>
+             </li>
+             <li className="nav-item">
+               <Link className="nav-link" to="cart">Cart</Link>
+             </li>
+             <li className="nav-item">
+               <Link className="nav-link" to="categories">Categories</Link>
+             </li>
 
-              <li className="nav-item">
-                <Link className="nav-link" to="home">Home</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="products">Products</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="brands">Brands</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="cart">Cart</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="categories">Categories</Link>
-              </li>
-
-            </ul>
+              </ul>
+          :""
+            }
             <ul className="navbar-nav ms-auto mt-2 mt-lg-0">
 
+              {token ?  <li className="nav-item">
+                <Link className="nav-link" to="signout">Signout</Link>
+              </li> :
+              <>
               <li className="nav-item">
                 <Link className="nav-link" to="signin">Signin</Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="signup">Signup</Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="signout">Signout</Link>
-              </li>
+              </>
+              
+            }
+
+              
+             
             </ul>
 
           </div>
