@@ -9,14 +9,14 @@ import  { UserToken } from '../../Context/TokenContext.js';
 
 
 export default function Signin() {
-    let {token, setToken} = useContext(UserToken);
+    let {setToken} = useContext(UserToken);
 
 
     const [EmailLabel, setEmailLabel] = useState(true);
     const [PasswordLabel, setPasswordLabel] = useState(true);
     const [isLoading , setIsLoading] = useState(false);
     const [error , setError] = useState(null);
-    const [visible , setVisible] = useState(false);
+    // const [visible , setVisible] = useState(false);
 
     let navigate = useNavigate();
     //checking if the input is empty - if it is empty then the label will be shown
@@ -103,7 +103,7 @@ export default function Signin() {
                     <label htmlFor="password" className={`${PasswordLabel?"": "show-label"} text-main`}>Password</label>
                     <div className=' position-relative '>
                     <input onBlur={formik.handleBlur} onChange={formik.handleChange} onInput={(e) => {checkEmpty(e)}} type="password" id='password' name='password'  className=' form-control py-2' placeholder='Password' />
-                    <p className='text-muted pt-2'>Have An Account ? <Link  to="../Signin/Signin.jsx" className='fw-bold text-main'>Signin</Link> </p>
+                    <p className='text-muted pt-2'>Don't have an account ? <Link  to="/signup" className='fw-bold text-main'>Signup</Link> </p>
                     {error? <p className='error'>{error}</p>:""}
                     {/* {!visible? <i class={`${style.p} fa-solid fa-eye position-absolute translate-middle-y top-50 `}></i>:""}  */}
                     {formik.errors.password&& formik.touched.password? <p className='error'>{formik.errors.password}</p>:""}

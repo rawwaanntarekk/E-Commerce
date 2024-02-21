@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useFormik } from 'formik';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup'
 
@@ -139,7 +139,7 @@ import * as yup from 'yup'
                     <label htmlFor="rePassword" className={`${RePasswordLabel?"": "show-label"} text-main`}>Repassword</label>
                     <input onBlur={formik.handleBlur} onChange={formik.handleChange}  onInput={(e) => {checkEmpty(e)}}type="password" name='rePassword' id='rePassword'  className=' form-control py-2' placeholder='RePassword' />
                     {formik.errors.rePassword&& formik.touched.rePassword? <p className='error'>{formik.errors.rePassword}</p>:""}
-                    <p className='text-muted pt-2'>Have An Account ? <Link  to="../Signin/Signin.jsx" className='fw-bold text-main'>Signin</Link> </p>
+                    <p className='text-muted pt-2'>Have An Account ? <Link  to="/signin" className='fw-bold text-main'>Signin</Link> </p>
                     {error? <p className='error'>{error}</p>:""}
                 </div>
              

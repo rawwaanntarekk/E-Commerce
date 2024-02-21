@@ -1,12 +1,23 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { UserToken } from '../../Context/TokenContext'
 export default function NavBar() {
   let {token , setToken} = useContext(UserToken);
+  let navigate = useNavigate();
 
+
+  // To keep the user logged in after refreshing the page
   if (localStorage.getItem('UserToken') !== null) {
     setToken(localStorage.getItem('UserToken'));
   }
+
+  function Logout(){
+    navigate("/signin");
+    setToken(null);
+    localStorage.removeItem('UserToken');
+  }
+
+
 
   return (
     <div>
@@ -53,7 +64,7 @@ export default function NavBar() {
             <ul className="navbar-nav ms-auto mt-2 mt-lg-0">
 
               {token ?  <li className="nav-item">
-                <Link className="nav-link" to="signout">Signout</Link>
+                <Link onClick={()=> Logout()} className="nav-link">Logout</Link>
               </li> :
               <>
               <li className="nav-item">
