@@ -106,8 +106,8 @@ import * as yup from 'yup'
 
     
   return (
-    <div>
-        <h1 className='text-main text-center my-4'>Register Form</h1>
+    <div className='my-5'>
+        <h1 className='text-main text-center mt-4 py-5'>Register Form</h1>
         <form onSubmit={formik.handleSubmit} className='signin'>
             <div className="row  gy-2 mx-auto my-3 ">
                 <div className=" col-sm-12 col-10 col-md-12 mx-auto mb-4 ">

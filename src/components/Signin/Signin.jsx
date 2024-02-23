@@ -88,8 +88,8 @@ export default function Signin() {
 
     
   return (
-    <div>
-        <h1 className='text-main text-center my-4'>Login Form</h1>
+    <div className='my-5 py-5'>
+        <h1 className='text-main text-center my-5'>Login Form</h1>
         <form onSubmit={formik.handleSubmit} className='signin'>
             <div className="row  gy-2 mx-auto my-3 ">
                 

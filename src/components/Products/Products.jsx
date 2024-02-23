@@ -17,14 +17,15 @@ export default function Products() {
   }, [])
   return (
     <>
+    <h1 className='mb-5'>Products</h1>
     {products.length === 0 ?
     <span className='content-loader '></span>
-    : <div className="row g-4 overflow-hidden my-5 ">
+    : <div className="row g-4 overflow-hidden  ">
     {
       products.map((product) => {
         return(
-          <div className="col-md-3 my-5 ">
-            <div className="product  py-3 px-4 rounded rounded-4">
+          <div className="col-md-3  " key={product._id}>
+            <div className="product  mb-4 pb-4 px-4 rounded rounded-4">
             <img src={product.imageCover} alt={product.title} className="w-100" />
             <h6>{product.title}</h6>
             <p className='text-main'>{product.category.name}</p>

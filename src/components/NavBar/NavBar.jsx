@@ -13,15 +13,16 @@ export default function NavBar() {
 
   function Logout(){
     navigate("/signin");
-    setToken(null);
     localStorage.removeItem('UserToken');
+    setToken(null);
+
   }
 
 
 
   return (
     <div>
-      <nav className="navbar navbar-expand-sm navbar-light bg-light position-fixed w-100 navBar "
+      <nav className="navbar navbar-expand-sm navbar-light bg-light position-fixed w-100 navBar"
       >
         <div className="container">
           <Link className="navbar-brand fw-bold " href="#">

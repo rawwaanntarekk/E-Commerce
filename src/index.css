@@ -87,9 +87,12 @@ input:focus {
 }
 
 /* Responsive Design */
-@media (min-width: 769px) {
+@media (max-width: 769px) {
   form .row {
     width: 50% !important;
+  }
+  .category-slider  img{
+    height: 200px !important;
   }
 }
 
