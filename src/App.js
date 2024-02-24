@@ -11,6 +11,8 @@ import Categories from "./components/Categories/Categories.jsx";
 import NotFound from "./components/NotFound/NotFound.jsx";
 import TokenContext from "./Context/TokenContext.js";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
+import ProductDetails from "./components/ProductDetails/ProductDetails.jsx";
+
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,14 @@ const router = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Home />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "productDetails/:id",
+        element: (
+          <ProtectedRoute>
+            <ProductDetails />
           </ProtectedRoute>
         ),
       },

@@ -100,6 +100,12 @@ input:focus {
   color : #FFDF00 !important
 }
 
+.resetLinkStyle {
+  text-decoration: none !important;
+  color: black !important;
+
+}
+
 .product .btn {
   overflow: hidden;
   opacity: 0;

@@ -1,5 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
+
 
 
 
@@ -8,7 +10,6 @@ export default function Products() {
   async function getProducts(){
     let {data} = await axios.get("https://ecommerce.routemisr.com/api/v1/products");
     setProducts(data.data);
-    console.log(data);
 
   }
 
@@ -26,16 +27,19 @@ export default function Products() {
         return(
           <div className="col-md-3  " key={product._id}>
             <div className="product  mb-4 pb-4 px-4 rounded rounded-4">
-            <img src={product.imageCover} alt={product.title} className="w-100" />
-            <h6>{product.title}</h6>
-            <p className='text-main'>{product.category.name}</p>
-            <div className="priceWRate d-flex justify-content-between">
-              <p className="price">{product.price} EGP</p>
-              <div className="rate d-flex align-items-center">
-                <i className=' fa-solid fa-star mx-1 rating-color'></i>
-                <p className='mb-0'>{product.ratingsAverage} </p>
-              </div>
-            </div>
+              <Link to={`/productDetails/${product._id}`} className="resetLinkStyle ">
+                <img src={product.imageCover} alt={product.title} className="w-100" />
+                <h6>{product.title}</h6>
+                <p className='text-main'>{product.category.name}</p>
+                <div className="priceWRate d-flex justify-content-between">
+                  <p className="price">{product.price} EGP</p>
+                  <div className="rate d-flex align-items-center">
+                    <i className=' fa-solid fa-star mx-1 rating-color'></i>
+                    <p className='mb-0'>{product.ratingsAverage} </p>
+                  </div>
+                </div>
+              </Link>
+
             <button className='btn bg-main text-light'> Add to Cart</button>
             </div>
           </div>

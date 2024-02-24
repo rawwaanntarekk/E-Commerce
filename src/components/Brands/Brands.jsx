@@ -1,11 +1,10 @@
 import axios from 'axios';
-import React, { useState } from 'react'
 import { useQuery } from 'react-query';
 
 export default function Brands() {
 
   async function getBrands(){
-   return await axios.get("https://ecommerce.routemisr.com/api/v1/brands");
+  return await axios.get("https://ecommerce.routemisr.com/api/v1/brands");
   }
 
   let {data , isLoading} = useQuery('brands', getBrands);
