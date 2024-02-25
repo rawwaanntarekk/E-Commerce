@@ -1,9 +1,13 @@
 import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserToken } from '../../Context/TokenContext'
+import { cartContext } from '../../Context/CartContext';
+
+
 export default function NavBar() {
   let {token , setToken} = useContext(UserToken);
   let navigate = useNavigate();
+  let {cartNumber , setCartNumber} = useContext(cartContext);
 
 
   // To keep the user logged in after refreshing the page
@@ -51,9 +55,7 @@ export default function NavBar() {
              <li className="nav-item">
                <Link className="nav-link" to="brands">Brands</Link>
              </li>
-             <li className="nav-item">
-               <Link className="nav-link" to="cart">Cart</Link>
-             </li>
+             
              <li className="nav-item">
                <Link className="nav-link" to="categories">Categories</Link>
              </li>
@@ -63,9 +65,19 @@ export default function NavBar() {
             }
             <ul className="navbar-nav ms-auto mt-2 mt-lg-0">
 
-              {token ?  <li className="nav-item">
+              {token ?  
+              <>
+              <li className="nav-item">
+              <Link className="nav-link" to="cart">
+              <i className="fa-solid fa-cart-shopping text-main"></i>
+              <span className="badge bg-main"> {cartNumber}</span>
+              </Link>
+            </li>
+            <li className="nav-item">
                 <Link onClick={()=> Logout()} className="nav-link">Logout</Link>
-              </li> :
+              </li>
+              </>
+              :
               <>
               <li className="nav-item">
                 <Link className="nav-link" to="signin">Signin</Link>

@@ -12,6 +12,8 @@ import NotFound from "./components/NotFound/NotFound.jsx";
 import TokenContext from "./Context/TokenContext.js";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import ProductDetails from "./components/ProductDetails/ProductDetails.jsx";
+import CartContextProvider from "./Context/CartContext.js";
+import { ToastContainer } from "react-toastify";
 
 
 const router = createBrowserRouter([
@@ -84,9 +86,13 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <TokenContext>
-      <RouterProvider router={router} />
-    </TokenContext>
+      <CartContextProvider>
+        <TokenContext>
+        <RouterProvider router={router} />
+        <ToastContainer theme="colored"/>
+      </TokenContext>
+      </CartContextProvider>
+      
   );
 }
 

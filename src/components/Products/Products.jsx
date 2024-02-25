@@ -1,17 +1,35 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { cartContext } from '../../Context/CartContext';
+import { toast } from 'react-toastify';
+
+
 
 
 
 
 export default function Products() {
   const [products, setProducts] = useState([]);
+  let {addToCart , setCartNumber} = useContext(cartContext);
+
+  async function addToMyCart(id){
+    let {data} = await addToCart(id);
+    console.log(data.numOfCartItems);
+    if (data.status === "success") {
+        toast.success(data.message);
+        setCartNumber(data.numOfCartItems);
+        
+    }
+}
+
   async function getProducts(){
     let {data} = await axios.get("https://ecommerce.routemisr.com/api/v1/products");
     setProducts(data.data);
 
   }
+
+ 
 
   useEffect(() => {
     getProducts();
@@ -40,7 +58,7 @@ export default function Products() {
                 </div>
               </Link>
 
-            <button className='btn bg-main text-light'> Add to Cart</button>
+            <button onClick={()=>addToMyCart(product._id)} className='btn bg-main text-light'> Add to Cart</button>
             </div>
           </div>
         )
