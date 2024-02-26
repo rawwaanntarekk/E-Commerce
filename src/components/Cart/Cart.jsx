@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { cartContext } from '../../Context/CartContext';
+import { Link } from 'react-router-dom';
+
 
 
 export default function Cart() {
@@ -38,13 +40,13 @@ export default function Cart() {
     })()
   })
   return (
-    <div>
-      <h1>Shopping Cart</h1>
-      <h3 className=' py-5 mt-5 text-main fw-bold text-end'> Total Price : <span className='text-dark'>{cartPrice}</span></h3>
+    <div className='py-5 mt-5'>
+      <h1 className=' '>Shopping Cart</h1>
+      <h3 className=' text-main fw-bold text-end'> Total Price : <span className='text-dark'>{cartPrice}</span></h3>
       <div className="container">
         
-          {
-            cartProducts?.map((product)=> {
+      {
+      cartProducts?.map((product)=> {
               return (
                 <div className="row border-bottom" key={product._id}>
                   <div className="col-md-2 my-4">
@@ -67,11 +69,17 @@ export default function Cart() {
                   
                 </div>
               )
-            })
-          }
-
+      })
+      }
+     
         
       </div>
+      <div className="div mx-auto w-50 mt-3 ">
+      <Link to="/checkout" >
+      <button className='btn bg-main text-light w-100 py-2  '>Checkout</button>
+      </Link>
+      </div>
+     
     </div>
   )
 }

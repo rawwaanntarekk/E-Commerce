@@ -3,12 +3,14 @@ import { Link, useNavigate } from 'react-router-dom'
 import { UserToken } from '../../Context/TokenContext'
 import { cartContext } from '../../Context/CartContext';
 import { useEffect } from 'react';
+import { wishListContext } from '../../Context/WishListContext';
 
 
 export default function NavBar() {
   let {token , setToken} = useContext(UserToken);
   let navigate = useNavigate();
   let {cartNumber , getCart , setCartNumber} = useContext(cartContext);
+  let {WishListNumber , getWishList , setWishListNumber} = useContext(wishListContext);
   
 
 
@@ -28,8 +30,9 @@ export default function NavBar() {
     (async ()=>{
       let {data} = await getCart();
       setCartNumber(data.numOfCartItems);
+      setWishListNumber(data.data.length);
     })()
-  }, [getCart, setCartNumber])
+  }, [getCart, setCartNumber , setWishListNumber])
 
 
 
@@ -80,6 +83,12 @@ export default function NavBar() {
               <Link className="nav-link" to="cart">
               <i className="fa-solid fa-cart-shopping text-main"></i>
               <span className="badge bg-main"> {cartNumber}</span>
+              </Link>
+            </li>
+              <li className="nav-item">
+              <Link className="nav-link" to="wishlist">
+              <i class="fa-solid fa-heart text-main text-center  "></i>
+              <span className="badge bg-main"> {WishListNumber}</span>
               </Link>
             </li>
             <li className="nav-item">

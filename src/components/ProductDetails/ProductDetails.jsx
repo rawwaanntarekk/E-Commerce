@@ -1,15 +1,21 @@
 import axios from 'axios';
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { cartContext } from '../../Context/CartContext';
 import { toast } from 'react-toastify';
+import { wishListContext } from '../../Context/WishListContext';
+
 
 
 
 export default function ProductDetails() {
 let param = useParams();
 let {addToCart , setCartNumber} = useContext(cartContext);
+let {addToWishlist , setWishListNumber} = useContext(wishListContext);
+const [isWishlistItem, setIsWishlistItem] = useState(false); 
+
+
 
 
 
@@ -21,6 +27,19 @@ async function addToMyCart(id){
         toast.success(data.message);
         setCartNumber(data.numOfCartItems);
     }
+}
+
+async function addToMyWishlist(id){
+    let {data} = await  addToWishlist(id);
+    if (data.status === "success") {
+        toast.success(data.message);
+        setWishListNumber(data.data.length);
+        console.log(data.data.length);
+        setIsWishlistItem(!isWishlistItem);
+
+    }
+
+    
 }
 
 
@@ -56,14 +75,14 @@ return (
                 <p className='mt-4'>{`Available quantity: ${product.quantity}`}</p>
                 </div>
             <div className="icons d-flex flex-column">
-            <i class="fa-regular fa-heart fs-3 text-main text-center my-2 "></i>
             <div className="rate d-flex align-items-center fs-5 ">
-                <i className=' fa-solid fa-star mx-1 rating-color'></i>
+                <i onClick={() => {addToMyWishlist(product._id);}} className={`fa-${isWishlistItem ? 'solid' : 'regular'} fa-heart fs-3 text-main text-center my-2`}>
+                    </i> 
                 <p className='mb-0'>{product.ratingsAverage} </p>
             </div>
             </div>
         </div>
-        <button onClick={()=>addToMyCart(product._id)} className='btn bg-main text-light  col-12  py-2'> Add to Cart
+        <button onClick={() =>addToMyCart(product._id)} className='btn wish-btn bg-main text-light  col-12  py-2'> Add to Cart
         <i className="fa-solid fa-cart-shopping  text-light mx-2"></i>
         </button>
 

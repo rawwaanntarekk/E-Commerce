@@ -52,7 +52,22 @@ export default function CartContextProvider(props){
         }
         )
     }
-    return <cartContext.Provider value={{addToCart , setCartNumber , cartNumber , getCart ,updateCart , deleteFromCart }}>
+
+    function checkoutPayment(id , formData){
+        return axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${id}?url=http://localhost:3000`,
+        //body
+        {
+            shippingAddress:formData
+        },
+        // headers
+        {
+            headers:{token:localStorage.getItem('UserToken')}
+        }
+        )
+
+
+    }
+    return <cartContext.Provider value={{addToCart , setCartNumber , cartNumber , getCart ,updateCart , deleteFromCart, checkoutPayment }}>
             {props.children}
         </cartContext.Provider>
     

@@ -14,6 +14,10 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
 import ProductDetails from "./components/ProductDetails/ProductDetails.jsx";
 import CartContextProvider from "./Context/CartContext.js";
 import { ToastContainer } from "react-toastify";
+import Payment from "./components/Payment/Payment.jsx";
+import Allorders from "./components/Allorders/Allorders.jsx";
+import WishList from "./components/WishList/WishList.jsx";
+import WishListContextProvider from "./Context/WishListContext.js";
 
 
 const router = createBrowserRouter([
@@ -77,6 +81,31 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "checkout",
+        element: (
+          <ProtectedRoute>
+            <Payment />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "allorders",
+        element: (
+          <ProtectedRoute>
+            <Allorders />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "wishlist",
+        element: (
+          <ProtectedRoute>
+            <WishList />
+          </ProtectedRoute>
+        ),
+      },
+
       { path: "signin", element: <SignIn /> },
       { path: "signup", element: <SignUp /> },
       { path: "*", element: <NotFound /> },
@@ -86,13 +115,14 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-      <CartContextProvider>
-        <TokenContext>
+    <CartContextProvider>
+      <TokenContext>
+        <WishListContextProvider>
         <RouterProvider router={router} />
-        <ToastContainer theme="colored"/>
+        <ToastContainer theme="colored" />
+        </WishListContextProvider>
       </TokenContext>
-      </CartContextProvider>
-      
+    </CartContextProvider>
   );
 }
 
