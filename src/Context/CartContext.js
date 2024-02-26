@@ -19,9 +19,40 @@ export default function CartContextProvider(props){
         {
             headers:{token:localStorage.getItem('UserToken')}
         }
-        ).catch(err=>console.log(err));
+        )
     }
-    return <cartContext.Provider value={{addToCart , setCartNumber , cartNumber}}>
+
+    function getCart(){
+        return axios.get("https://ecommerce.routemisr.com/api/v1/cart",
+        {
+            headers:{token:localStorage.getItem('UserToken')}
+        }
+        )
+    
+    }
+
+
+    function updateCart(id, count){
+        return axios.put(`https://ecommerce.routemisr.com/api/v1/cart/${id}`,
+        // body
+        {
+            count:count
+        },
+        // headers
+        {
+            headers:{token:localStorage.getItem('UserToken')}
+        }
+        )
+    }
+    function deleteFromCart(id){
+        return axios.delete(`https://ecommerce.routemisr.com/api/v1/cart/${id}`,
+        // headers
+        {
+            headers:{token:localStorage.getItem('UserToken')}
+        }
+        )
+    }
+    return <cartContext.Provider value={{addToCart , setCartNumber , cartNumber , getCart ,updateCart , deleteFromCart }}>
             {props.children}
         </cartContext.Provider>
     

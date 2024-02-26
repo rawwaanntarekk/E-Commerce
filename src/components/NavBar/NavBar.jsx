@@ -2,12 +2,14 @@ import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserToken } from '../../Context/TokenContext'
 import { cartContext } from '../../Context/CartContext';
+import { useEffect } from 'react';
 
 
 export default function NavBar() {
   let {token , setToken} = useContext(UserToken);
   let navigate = useNavigate();
-  let {cartNumber , setCartNumber} = useContext(cartContext);
+  let {cartNumber , getCart , setCartNumber} = useContext(cartContext);
+  
 
 
   // To keep the user logged in after refreshing the page
@@ -21,6 +23,13 @@ export default function NavBar() {
     setToken(null);
 
   }
+
+  useEffect(() => {
+    (async ()=>{
+      let {data} = await getCart();
+      setCartNumber(data.numOfCartItems);
+    })()
+  }, [getCart, setCartNumber])
 
 
 
