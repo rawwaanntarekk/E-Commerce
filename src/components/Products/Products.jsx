@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { cartContext } from '../../Context/CartContext';
 import { toast } from 'react-toastify';
@@ -35,11 +35,14 @@ async function addToMyWishlist(id){
   }
 }
 
-  async function getMyWishlist(){
-  let {data} = await getWishList();
-  setWishListProducts(data.data);
+useEffect(() => {   
+  (async ()=>{
+      getProducts();
+      let {data} = await getWishList();
+      setWishListProducts(data.data);
+  })()
+})
 
-}
 
 function isInWishList(product_id){
   let found = wishListProducts.find((product) => product._id === product_id);
@@ -60,10 +63,6 @@ function isInWishList(product_id){
 
 
 
-  useEffect(() => {
-    getProducts();
-    getMyWishlist();
-  }, [getMyWishlist])
   return (
     <>
     <h1 className='mb-5'>Products</h1>
