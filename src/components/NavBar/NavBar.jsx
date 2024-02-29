@@ -10,7 +10,7 @@ export default function NavBar() {
   let {token , setToken} = useContext(UserToken);
   let navigate = useNavigate();
   let {cartNumber , getCart , setCartNumber } = useContext(cartContext);
-  let {WishListNumber  , setWishListNumber} = useContext(wishListContext);
+  let {WishListNumber  , setWishListNumber, getWishList} = useContext(wishListContext);
   
 
 
@@ -28,16 +28,17 @@ export default function NavBar() {
   
 
   useEffect(() => {
-    if (token && cartNumber>0) {
+    if (token) {
       (async () => {
         let { data } = await getCart();
         setCartNumber(data.numOfCartItems);
-        if (data.numOfCartItems === 0) {
-          setCartNumber(0);
-        }
+        console.log(data.numOfCartItems);
+        let { data: wishListData } = await getWishList();
+        setWishListNumber(wishListData.data.length);
+
       })();
     }
-  }, [getCart, setCartNumber, setWishListNumber, token , cartNumber , WishListNumber]);
+  }, []);
 
 
 
