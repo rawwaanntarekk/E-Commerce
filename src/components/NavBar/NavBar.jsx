@@ -38,7 +38,7 @@ export default function NavBar() {
 
       })();
     }
-  }, []);
+  }, [getCart, setCartNumber, setWishListNumber, token , cartNumber , WishListNumber , getWishList]);
 
 
 

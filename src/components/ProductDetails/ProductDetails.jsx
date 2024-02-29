@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import { cartContext } from '../../Context/CartContext';
@@ -8,16 +8,12 @@ import { wishListContext } from '../../Context/WishListContext';
 
 
 
-
 export default function ProductDetails() {
 let param = useParams();
 let {addToCart , setCartNumber} = useContext(cartContext);
-let {addToWishlist , setWishListNumber} = useContext(wishListContext);
+let {getWishList , deleteFromWishlist , setWishListNumber,addToWishlist} = useContext(wishListContext);
 const [isWishlistItem, setIsWishlistItem] = useState(false); 
-
-
-
-
+const [wishListProducts , setWishListProducts] = useState([]);
 
 
 
@@ -41,6 +37,24 @@ async function addToMyWishlist(id){
 
     
 }
+
+useEffect(() => {   
+    (async ()=>{
+        let {data} = await getWishList();
+        setWishListProducts(data.data);
+    })()
+})
+
+
+  
+  function isInWishList(product_id){
+    let found = wishListProducts.find((product) => product._id === product_id);
+    if (found) {
+      return true;
+    }
+    return false;
+  }
+  
 
 
 
@@ -76,8 +90,11 @@ return (
                 </div>
             <div className="icons d-flex flex-column">
             <div className="rate d-flex align-items-center fs-5 ">
-                <i onClick={() => {addToMyWishlist(product._id);}} className={`fa-${isWishlistItem ? 'solid' : 'regular'} fa-heart fs-3 text-main text-center my-2`}>
-                    </i> 
+                {
+                    isInWishList(product._id) ? 
+                    <i className='fa-solid fa-heart  fs-3 text-main text-center my-2' onClick={()=>{deleteFromWishlist(product._id); }}></i>
+                    : <i className='fa-regular fa-heart fs-3 text-main text-center my-2' onClick={()=>{addToMyWishlist(product._id); }}></i>
+                    }
                 <p className='mb-0'>{product.ratingsAverage} </p>
             </div>
             </div>

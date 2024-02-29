@@ -8,6 +8,8 @@ export let wishListContext = createContext();
 export default function WishListContextProvider(props){
 
     const [WishListNumber, setWishListNumber] = useState(0);
+    const [isInWishlist , setIsInWishlist] = useState(false);
+    const [WishList, setWishList] = useState([]);
 
     function addToWishlist(id){
         return axios.post("https://ecommerce.routemisr.com/api/v1/wishlist",
@@ -39,6 +41,12 @@ export default function WishListContextProvider(props){
         }
         )
     }
+
+    function changeHeartColor(productId){
+      
+    }
+
+
 
 
     return <wishListContext.Provider value={{addToWishlist , setWishListNumber , WishListNumber , getWishList , deleteFromWishlist }}>

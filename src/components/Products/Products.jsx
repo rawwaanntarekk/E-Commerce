@@ -12,8 +12,9 @@ import { wishListContext } from '../../Context/WishListContext';
 
 
 export default function Products() {
-  let {addToWishlist , setWishListNumber} = useContext(wishListContext);
+  let {getWishList , deleteFromWishlist , setWishListNumber,addToWishlist} = useContext(wishListContext);
   const [products, setProducts] = useState([]);
+  const [wishListProducts , setWishListProducts] = useState([]);
   let {addToCart , setCartNumber} = useContext(cartContext);
 
   async function addToMyCart(id){
@@ -31,8 +32,21 @@ async function addToMyWishlist(id){
   if (data.status === "success") {
       toast.success(data.message);
       setWishListNumber(data.data.length);
-      console.log(data.data.length);
   }
+}
+
+  async function getMyWishlist(){
+  let {data} = await getWishList();
+  setWishListProducts(data.data);
+
+}
+
+function isInWishList(product_id){
+  let found = wishListProducts.find((product) => product._id === product_id);
+  if (found) {
+    return true;
+  }
+  return false;
 }
 
 
@@ -44,9 +58,12 @@ async function addToMyWishlist(id){
   }
 
 
+
+
   useEffect(() => {
     getProducts();
-  }, [])
+    getMyWishlist();
+  }, [getMyWishlist])
   return (
     <>
     <h1 className='mb-5'>Products</h1>
@@ -62,11 +79,14 @@ async function addToMyWishlist(id){
                 <img src={product.imageCover} alt={product.title} className="w-100" />
               </Link>
               <h6>{product.title}</h6>
-               <div className="d-flex justify-content-between">
-               <p className='text-main'>{product.category.name}</p>
-               <i onClick={() => {  addToMyWishlist(product._id);}} className={`fa-regular fa-heart fs-3 text-main text-center my-2`}>
-                </i> 
-               </div>
+              <div className="d-flex justify-content-between">
+              <p className='text-main'>{product.category.name}</p>
+              {
+                  isInWishList(product._id) ? 
+                  <i className='fa-solid fa-heart  fs-3 text-main text-center my-2' onClick={()=>{deleteFromWishlist(product._id); }}></i>
+                  : <i className='fa-regular fa-heart fs-3 text-main text-center my-2' onClick={()=>{addToMyWishlist(product._id); }}></i>
+              }
+              </div>
                 <div className="priceWRate d-flex justify-content-between">
                   <p className="price">{product.price} EGP</p>
                   <div className="rate d-flex align-items-center">
