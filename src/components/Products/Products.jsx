@@ -65,7 +65,7 @@ function isInWishList(product_id){
 
   return (
     <>
-    <h1 className='mb-5'>Products</h1>
+    <h1 className='mb-5 text-main'>Products</h1>
     {products.length === 0 ?
     <span className='content-loader '></span>
     : <div className="row g-4 overflow-hidden  ">
@@ -105,6 +105,6 @@ function isInWishList(product_id){
     
     
     </>
-     
+
   )
 }

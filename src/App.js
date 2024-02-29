@@ -7,7 +7,6 @@ import Products from "./components/Products/Products.jsx";
 import Brands from "./components/Brands/Brands.jsx";
 import SignIn from "./components/Signin/Signin.jsx";
 import SignUp from "./components/Signup/Signup.jsx";
-import Categories from "./components/Categories/Categories.jsx";
 import NotFound from "./components/NotFound/NotFound.jsx";
 import TokenContext from "./Context/TokenContext.js";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute.jsx";
@@ -20,6 +19,7 @@ import WishList from "./components/WishList/WishList.jsx";
 import WishListContextProvider from "./Context/WishListContext.js";
 import ForgetPassword from "./components/ForgetPassword/ForgetPassword.jsx";
 import ResetPassword from "./components/ResetPassword/ResetPassword.jsx";
+import Categories from "./components/Categories/Categories.jsx";
 
 const router = createBrowserRouter([
   {
@@ -70,7 +70,7 @@ const router = createBrowserRouter([
         path: "categories",
         element: (
           <ProtectedRoute>
-            <Categories />
+            <Categories/>
           </ProtectedRoute>
         ),
       },

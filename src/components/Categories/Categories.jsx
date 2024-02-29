@@ -1,49 +1,42 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import Slider from "react-slick";
+import axios from 'axios';
+import { useQuery } from 'react-query';
+import { useState } from 'react';
 
 
 export default function Categories() {
 
-  
-  const [categories, setCategories] = useState([]);
 
-  var settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1
-  };
-
-  async function getCategories(){
-    let {data} = await axios.get('https://ecommerce.routemisr.com/api/v1/categories');
-    setCategories(data.data);
-  }
+    async function getCategories(){
+        try {
+            return await axios.get('https://ecommerce.routemisr.com/api/v1/categories');
+        }
+        catch(error){
+            console.error(error);
+        }
+    }
 
 
-  useEffect(() => {
-    getCategories();
-  }, [])
+let {data , isLoading} = useQuery('categories', getCategories);
+console.log(data?.data.data);
 
-  return (
-    <div className='py-5 mt-5'>
-        <h1>Categories</h1>
-        <Slider {...settings}>
-          {
-            categories.map((category )  => {
-              return(
-                <div className="row category-slider " key={category.id}>
-                  <div key={category.id} className='col-12'>
-                <img src={category.image} alt={category.name} className='w-100 ' height={300} />
-                <p>{category.name}</p>
-                </div>
-                </div>
-              )
-            })
-          }
-
-        </Slider>
-    </div>
-  )
+return (
+<div className='py-5'>
+    <h1 className='pt-5 text-main'>Categories</h1>
+    {isLoading ? 
+    <span className='content-loader'></span>
+    : <div className="row g-4">
+    {
+        data?.data.data.map((category) => {
+        return(
+        <div className="col-md-3 mb-3" key={category.id}  >
+            <img src={category.image} alt={category.name} className="w-100" height={300} />
+            <h4 className='text-center text-main'>{category.name}</h4>
+        </div>
+        )
+    })
+    }
+</div>
+    }
+</div>
+)
 }

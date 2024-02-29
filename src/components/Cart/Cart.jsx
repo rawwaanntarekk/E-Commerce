@@ -41,7 +41,7 @@ export default function Cart() {
   })
   return (
     <div className='py-5 mt-5'>
-      <h1 className=' '>Shopping Cart</h1>
+      <h1 className='text-main'>Shopping Cart</h1>
       <h3 className=' text-main fw-bold text-end'> Total Price : <span className='text-dark'>{cartPrice}</span></h3>
       <div className="container">
         
