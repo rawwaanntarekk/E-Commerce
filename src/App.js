@@ -18,7 +18,8 @@ import Payment from "./components/Payment/Payment.jsx";
 import Allorders from "./components/Allorders/Allorders.jsx";
 import WishList from "./components/WishList/WishList.jsx";
 import WishListContextProvider from "./Context/WishListContext.js";
-
+import ForgetPassword from "./components/ForgetPassword/ForgetPassword.jsx";
+import ResetPassword from "./components/ResetPassword/ResetPassword.jsx";
 
 const router = createBrowserRouter([
   {
@@ -105,6 +106,14 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "forgetPassword",
+        element: <ForgetPassword />,
+      },
+      {
+        path: "resetPass",
+        element: <ResetPassword />,
+      },
 
       { path: "signin", element: <SignIn /> },
       { path: "signup", element: <SignUp /> },
@@ -118,8 +127,8 @@ function App() {
     <CartContextProvider>
       <TokenContext>
         <WishListContextProvider>
-        <RouterProvider router={router} />
-        <ToastContainer theme="colored" />
+          <RouterProvider router={router} />
+          <ToastContainer theme="colored" />
         </WishListContextProvider>
       </TokenContext>
     </CartContextProvider>

@@ -9,8 +9,8 @@ import { wishListContext } from '../../Context/WishListContext';
 export default function NavBar() {
   let {token , setToken} = useContext(UserToken);
   let navigate = useNavigate();
-  let {cartNumber , getCart , setCartNumber} = useContext(cartContext);
-  let {WishListNumber , getWishList , setWishListNumber} = useContext(wishListContext);
+  let {cartNumber , getCart , setCartNumber } = useContext(cartContext);
+  let {WishListNumber  , setWishListNumber} = useContext(wishListContext);
   
 
 
@@ -25,14 +25,19 @@ export default function NavBar() {
     setToken(null);
 
   }
+  
 
   useEffect(() => {
-    (async ()=>{
-      let {data} = await getCart();
-      setCartNumber(data.numOfCartItems);
-      setWishListNumber(data.data.length);
-    })()
-  }, [getCart, setCartNumber , setWishListNumber])
+    if (token && cartNumber>0) {
+      (async () => {
+        let { data } = await getCart();
+        setCartNumber(data.numOfCartItems);
+        if (data.numOfCartItems === 0) {
+          setCartNumber(0);
+        }
+      })();
+    }
+  }, [getCart, setCartNumber, setWishListNumber, token , cartNumber , WishListNumber]);
 
 
 
@@ -108,7 +113,7 @@ export default function NavBar() {
             }
 
               
-             
+            
             </ul>
 
           </div>

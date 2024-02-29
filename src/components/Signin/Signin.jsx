@@ -39,11 +39,11 @@ export default function Signin() {
                 setPasswordLabel(false);
             }
 
-           
+        
         }
-         
-     
-     }
+    
+    
+    }
 
     useEffect(() => {
     } , [])
@@ -74,7 +74,7 @@ export default function Signin() {
         password:yup.string().required("Password is required").matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*[$%&@!]).{8,}$/, "Password must contain at least 8 characters, including uppercase, lowercase, numbers and special characters"),
     })
 
-     let formik = useFormik({
+    let formik = useFormik({
         initialValues:{
             name:'',
             email:'',
@@ -84,7 +84,7 @@ export default function Signin() {
             onSubmit:SignUp,
             validationSchema: validationSchema
         })
-     
+
 
     
 return (
@@ -103,18 +103,21 @@ return (
                     <label htmlFor="password" className={`${PasswordLabel?"": "show-label"} text-main`}>Password</label>
                     <div className=' position-relative '>
                     <input onBlur={formik.handleBlur} onChange={formik.handleChange} onInput={(e) => {checkEmpty(e)}} type="password" id='password' name='password'  className=' form-control py-2' placeholder='Password' />
+                    <div className="d-flex justify-content-between">
                     <p className='text-muted pt-2'>Don't have an account ? <Link  to="/signup" className='fw-bold text-main'>Signup</Link> </p>
+                    <p className='text-muted pt-2'>Forget Password ? <Link  to="/forgetPassword" className='fw-bold text-main'>Reset</Link> </p>
+
+                    </div>
                     {error? <p className='error'>{error}</p>:""}
-                    {/* {!visible? <i class={`${style.p} fa-solid fa-eye position-absolute translate-middle-y top-50 `}></i>:""}  */}
                     {formik.errors.password&& formik.touched.password? <p className='error'>{formik.errors.password}</p>:""}
 
                     </div>
                 </div>
                 
                 <div className="col-sm-12 col-10 col-md-12 mx-auto text-end">
-                  <button disabled={!(formik.isValid && formik.dirty)} type='submit' className='btn bg-main text-light px-4 '> Register
-                  {isLoading ? <i class="fa-solid fa-spinner fa-spin mx-2"></i>:""}
-                  </button>
+                    <button disabled={!(formik.isValid && formik.dirty)} type='submit' className='btn bg-main text-light px-4 '> Register
+                    {isLoading ? <i class="fa-solid fa-spinner fa-spin mx-2"></i>:""}
+                    </button>
                     </div>
 
 

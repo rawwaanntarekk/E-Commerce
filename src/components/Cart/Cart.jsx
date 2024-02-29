@@ -71,7 +71,7 @@ export default function Cart() {
               )
       })
       }
-     
+
         
       </div>
       <div className="div mx-auto w-50 mt-3 ">
