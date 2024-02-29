@@ -106,7 +106,7 @@ return (
                 </div>
                 
                 <div className="col-12 col-md-7 mx-auto   text-end">
-                    <button disabled={!(formik.isValid && formik.dirty)} type='submit' className='btn bg-main text-light px-4 '> Register
+                    <button disabled={!(formik.isValid && formik.dirty)} type='submit' className='btn bg-main text-light px-4 '> Login
                     {isLoading ? <i class="fa-solid fa-spinner fa-spin mx-2"></i>:""}
                     </button>
                     </div>
