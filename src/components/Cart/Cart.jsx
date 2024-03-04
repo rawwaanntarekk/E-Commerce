@@ -14,7 +14,7 @@ export default function Cart() {
   async function removeProduct(id){
     let {data} = await deleteFromCart(id);
     setCartProducts(data?.data?.products);
-    setCartNumber(data.data.numOfCartItems);
+    setCartNumber(data.numOfCartItems);
 
     console.log(data);
     
@@ -33,12 +33,16 @@ export default function Cart() {
   }
   //^ get the cart products and the total price on the first render
   useEffect(() => {
+    if (localStorage.getItem('UserToken') !== null ){
     (async ()=>{
-      let {data} = await getCart();
-      setCartProducts(data?.data?.products);
-      setCartPrice(data?.data?.totalCartPrice)
-    })()
-  })
+    
+        let {data} = await getCart();
+        setCartProducts(data?.data?.products);
+        setCartNumber(data.numOfCartItems);
+        setCartPrice(data?.data?.totalCartPrice)
+      }
+    )()
+  }})
   return (
     <div className='py-5 mt-5'>
       <h1 className='text-main'>Shopping Cart</h1>

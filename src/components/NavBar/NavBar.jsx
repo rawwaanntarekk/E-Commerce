@@ -9,7 +9,7 @@ import { wishListContext } from '../../Context/WishListContext';
 export default function NavBar() {
   let {token , setToken} = useContext(UserToken);
   let navigate = useNavigate();
-  let {cartNumber , getCart , setCartNumber } = useContext(cartContext);
+  let {cartNumber , getCart , setCartNumber  } = useContext(cartContext);
   let {WishListNumber  , setWishListNumber, getWishList} = useContext(wishListContext);
   
 
@@ -28,17 +28,24 @@ export default function NavBar() {
   
 
   useEffect(() => {
-    if (token) {
       (async () => {
+        if (token && cartNumber > 0) {
         let { data } = await getCart();
         setCartNumber(data.numOfCartItems);
-        console.log(data.numOfCartItems);
+        }
         let { data: wishListData } = await getWishList();
         setWishListNumber(wishListData.data.length);
-
-      })();
+      }
+      )();
     }
-  }, [getCart, setCartNumber, setWishListNumber, token , cartNumber , WishListNumber , getWishList]);
+  );
+
+ 
+  useEffect(()=> {
+    setWishListNumber(WishListNumber)
+  } , [WishListNumber , setWishListNumber])
+
+
 
 
 

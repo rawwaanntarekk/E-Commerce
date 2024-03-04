@@ -7,7 +7,7 @@ import { cartContext } from '../../Context/CartContext';
 
 export default function WishList() {
 
-    let {getWishList , deleteFromWishlist , setWishListNumber} = useContext(wishListContext);
+    let {getWishList , deleteFromWishlist , setWishListNumber , WishListNumber } = useContext(wishListContext);
     const [wishListProducts , setWishListProducts] = useState([]);
     let {addToCart, setCartNumber} = useContext(cartContext);
 
@@ -20,6 +20,8 @@ useEffect(() => {
     })()
 })
 
+
+
 async function addToMyCart(id){
     let {data} = await addToCart(id);
     if (data.status === "success") {
@@ -27,15 +29,11 @@ async function addToMyCart(id){
         setCartNumber(data.numOfCartItems);
     }
 }
-
-
-
 //^ remove product from the wishlist
 async function removeProduct(id){
     let {data} = await deleteFromWishlist(id);
-    setWishListProducts(data.data);
     setWishListNumber(data.data.length);
-  }
+}
 
 return (
     <div className='py-5 mt-5'>
@@ -51,7 +49,7 @@ return (
                 <div className="col-md-10 my-4 d-flex justify-content-between align-items-center">
                 <div>
                     <h5>{product.title}</h5>
-                    <button onClick={()=> {removeProduct(product._id)}} className='btn btn-outline-danger'>
+                    <button onClick={()=> {removeProduct(product._id) ; setWishListNumber(WishListNumber-1)} } className='btn btn-outline-danger'>
                     <i className='fa-regular fa-trash-can me-2'></i> Remove</button>
                 </div>
                 <div>

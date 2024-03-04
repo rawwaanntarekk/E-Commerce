@@ -35,6 +35,14 @@ async function addToMyWishlist(id){
   }
 }
 
+async function DeleteFromMyWishlist(id){
+  let {data} = await  deleteFromWishlist(id);
+  toast.error(data.message);
+  console.log(data);
+
+
+}
+
 useEffect(() => {   
   (async ()=>{
       getProducts();
@@ -82,7 +90,7 @@ function isInWishList(product_id){
               <p className='text-main'>{product.category.name}</p>
               {
                   isInWishList(product._id) ? 
-                  <i className='fa-solid fa-heart  fs-3 text-main text-center my-2' onClick={()=>{deleteFromWishlist(product._id); }}></i>
+                  <i className='fa-solid fa-heart  fs-3 text-main text-center my-2' onClick={()=>{DeleteFromMyWishlist(product._id); }}></i>
                   : <i className='fa-regular fa-heart fs-3 text-main text-center my-2' onClick={()=>{addToMyWishlist(product._id); }}></i>
               }
               </div>
